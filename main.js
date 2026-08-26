@@ -93,9 +93,34 @@ function initTrace() {
 
 function initNav() {
     const nav = document.getElementById('topnav');
+    const hero = document.querySelector('.hero');
     return () => {
-        nav.classList.toggle('scrolled', window.scrollY > 24);
+        const threshold = hero.offsetHeight - nav.offsetHeight - 8;
+        nav.classList.toggle('scrolled', window.scrollY > threshold);
     };
+}
+
+/* The hero skill line collapses to one cycling word. The markup ships the
+   full list, so no-JS and reduced-motion readers still see every skill. */
+function initKinetic() {
+    const host = document.getElementById('heroSkills');
+    if (!host || reducedMotion) return;
+    const words = Array.from(host.querySelectorAll('span')).map((s) => s.textContent.trim());
+    if (words.length < 2) return;
+
+    host.innerHTML = '<span class="kinetic-word"></span>';
+    const word = host.firstElementChild;
+    word.textContent = words[0];
+
+    let i = 0;
+    setInterval(() => {
+        word.classList.add('out');
+        setTimeout(() => {
+            i = (i + 1) % words.length;
+            word.textContent = words[i];
+            word.classList.remove('out');
+        }, 260);
+    }, 1500);
 }
 
 function initClaims() {
@@ -110,6 +135,7 @@ function initClaims() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initClaims();
+    initKinetic();
 
     const frameTasks = [initNav(), initTrace()];
     let ticking = false;

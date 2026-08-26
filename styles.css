@@ -11,6 +11,7 @@
     --ink-soft: #6E675A;
     --accent: #B8420C;
     --accent-ink: #F6F4EE;
+    --accent-warm: #EF9563;
     --hairline: rgba(22, 20, 15, 0.16);
     --term-bg: #16140F;
     --term-text: #E9E5DA;
@@ -63,7 +64,7 @@ a {
     outline-offset: 3px;
 }
 
-/* Navigation */
+/* Navigation: light over the dark hero, inverts once the paper begins */
 nav {
     position: fixed;
     top: 0;
@@ -77,13 +78,15 @@ nav {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     letter-spacing: 0.14em;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+    color: var(--paper);
+    transition: background 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
 
 nav.scrolled {
     background: color-mix(in srgb, var(--paper) 88%, transparent);
     backdrop-filter: blur(8px);
     box-shadow: 0 1px 0 var(--hairline);
+    color: var(--ink);
 }
 
 .wordmark {
@@ -93,24 +96,48 @@ nav.scrolled {
 
 .nav-cta {
     text-decoration: none;
-    color: var(--accent);
-    border-bottom: 1px solid var(--accent);
+    color: var(--accent-warm);
+    border-bottom: 1px solid var(--accent-warm);
     padding-bottom: 2px;
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
 .nav-cta:hover {
+    background: var(--accent-warm);
+    color: var(--ink);
+}
+
+nav.scrolled .nav-cta {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+nav.scrolled .nav-cta:hover {
     background: var(--accent);
     color: var(--accent-ink);
 }
 
-/* Hero */
+/* Hero: the page opens dark and closes dark, paper in between */
 .hero {
-    min-height: 86vh;
+    background: var(--ink);
+    color: var(--paper);
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    padding: 6rem var(--gutter) 4rem;
+}
+
+.hero :focus-visible {
+    outline-color: var(--accent-warm);
+}
+
+.hero-inner {
+    width: 100%;
+    max-width: 78rem;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 5rem var(--gutter) 2rem;
-    max-width: 68rem;
+    align-items: flex-start;
 }
 
 .hero-meta {
@@ -118,94 +145,75 @@ nav.scrolled {
     font-size: 0.78rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink-soft);
+    color: rgba(246, 244, 238, 0.5);
     margin-bottom: 1.6rem;
 }
 
 .hero h1 {
-    font-size: clamp(2.9rem, 8.5vw, 6.4rem);
+    font-size: clamp(2.9rem, 8.4vw, 6.4rem);
     font-weight: 300;
+    letter-spacing: -0.025em;
     max-width: 12em;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.5rem;
 }
 
-.hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) auto;
-    gap: clamp(2rem, 5vw, 5rem);
-    align-items: center;
+.hero em {
+    color: var(--accent-warm);
+}
+
+/* Skill line: markup ships every skill, so the no-JS and reduced-motion
+   fallback is the full list. JS collapses it to one cycling word. */
+.hero-line {
+    font-family: var(--font-mono);
+    font-size: clamp(0.85rem, 1.6vw, 1.1rem);
+    color: rgba(246, 244, 238, 0.55);
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.7em;
+    margin-bottom: 1.7rem;
+}
+
+.hero-skills {
+    color: var(--accent-warm);
+}
+
+.hero-skills span + span::before {
+    content: ' · ';
+    color: rgba(246, 244, 238, 0.3);
+}
+
+.kinetic-word {
+    display: inline-block;
+    min-width: 15ch;
+    transition: opacity 0.28s ease;
+}
+
+.kinetic-word.out {
+    opacity: 0;
 }
 
 .hero-sub {
-    font-size: clamp(1.15rem, 2vw, 1.4rem);
-    color: var(--ink-soft);
-    max-width: var(--measure);
+    font-size: clamp(1.15rem, 2vw, 1.35rem);
+    color: rgba(246, 244, 238, 0.62);
+    max-width: 30em;
+    margin-bottom: 2rem;
 }
 
-/* Skill stack: the skills drawn as an architecture sketch. Architecture
-   and tech leadership span every layer, so they are the rails. */
-.stack {
-    display: grid;
-    grid-template-columns: auto minmax(14rem, 19rem) auto;
-    align-items: stretch;
-    gap: 0.6rem;
-}
-
-.stack-layers {
-    list-style: none;
-}
-
-.stack-layers li {
+.hero-cta {
     font-family: var(--font-mono);
     font-size: 0.78rem;
-    letter-spacing: 0.05em;
-    color: var(--ink-soft);
-    border: 1px solid var(--hairline);
-    padding: 0.65rem 1rem;
-    margin-top: -1px;
-    position: relative;
-    background: var(--paper);
-    opacity: 0;
-    transform: translateY(14px);
-    animation: rise 0.7s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
-    transition: color 0.25s ease, border-color 0.25s ease;
-    cursor: default;
+    letter-spacing: 0.08em;
+    color: var(--paper);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-warm);
+    padding-bottom: 4px;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-.stack-layers li:nth-child(1) { animation-delay: 0.55s; }
-.stack-layers li:nth-child(2) { animation-delay: 0.63s; }
-.stack-layers li:nth-child(3) { animation-delay: 0.71s; }
-.stack-layers li:nth-child(4) { animation-delay: 0.79s; }
-.stack-layers li:nth-child(5) { animation-delay: 0.87s; }
-.stack-layers li:nth-child(6) { animation-delay: 0.95s; }
-
-.stack-layers li:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-    z-index: 1;
-}
-
-.stack-rail {
-    writing-mode: vertical-rl;
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    animation: fade 0.7s ease forwards;
-    animation-delay: 1.05s;
-}
-
-.rail-left {
-    transform: rotate(180deg);
-}
-
-@keyframes fade {
-    to { opacity: 1; }
+.hero-cta:hover {
+    background: var(--accent-warm);
+    color: var(--ink);
 }
 
 .load-reveal {
@@ -214,8 +222,10 @@ nav.scrolled {
     animation: rise 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) forwards;
 }
 
-.hero-copy .load-reveal:nth-child(2) { animation-delay: 0.15s; }
-.hero-copy .load-reveal:nth-child(3) { animation-delay: 0.35s; }
+.hero-inner .load-reveal:nth-child(2) { animation-delay: 0.15s; }
+.hero-inner .load-reveal:nth-child(3) { animation-delay: 0.30s; }
+.hero-inner .load-reveal:nth-child(4) { animation-delay: 0.45s; }
+.hero-inner .load-reveal:nth-child(5) { animation-delay: 0.60s; }
 
 @keyframes rise {
     to {
@@ -435,14 +445,12 @@ nav.scrolled {
 
 /* Mobile */
 @media (max-width: 820px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 2.2rem;
+    .hero-line {
+        font-size: 0.8rem;
     }
 
-    .stack {
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        max-width: 24rem;
+    .kinetic-word {
+        min-width: 13ch;
     }
 
     .trace-grid {
@@ -472,16 +480,14 @@ nav.scrolled {
         scroll-behavior: auto;
     }
 
-    .load-reveal,
-    .stack-layers li,
-    .stack-rail {
+    .load-reveal {
         animation: none;
         opacity: 1;
         transform: none;
     }
 
-    .rail-left {
-        transform: rotate(180deg);
+    .kinetic-word {
+        transition: none;
     }
 
     .js .claim {

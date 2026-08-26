@@ -9,15 +9,15 @@
     --paper-deep: #EFECE2;
     --ink: #16140F;
     --ink-soft: #6E675A;
-    --accent: #1F3AC0;
+    --accent: #B8420C;
     --accent-ink: #F6F4EE;
     --hairline: rgba(22, 20, 15, 0.16);
     --term-bg: #16140F;
     --term-text: #E9E5DA;
     --term-dim: #8B857A;
-    --term-label: #8FA2FF;
+    --term-label: #EF9563;
     --term-ok: #69B08A;
-    --term-warn: #D89A4E;
+    --term-warn: #E5C069;
     --font-serif: 'Newsreader', Georgia, serif;
     --font-mono: 'JetBrains Mono', monospace;
     --measure: 34em;
@@ -105,11 +105,11 @@ nav.scrolled {
 
 /* Hero */
 .hero {
-    min-height: 92vh;
+    min-height: 86vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 6rem var(--gutter) 3rem;
+    padding: 5rem var(--gutter) 2rem;
     max-width: 68rem;
 }
 
@@ -119,21 +119,21 @@ nav.scrolled {
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    margin-bottom: 2.2rem;
+    margin-bottom: 1.6rem;
 }
 
 .hero h1 {
     font-size: clamp(2.9rem, 8.5vw, 6.4rem);
     font-weight: 300;
     max-width: 12em;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.4rem;
 }
 
 .hero-sub {
     font-size: clamp(1.15rem, 2vw, 1.4rem);
     color: var(--ink-soft);
     max-width: var(--measure);
-    margin-bottom: 2.8rem;
+    margin-bottom: 2.2rem;
 }
 
 .hero-tags {
@@ -178,7 +178,7 @@ nav.scrolled {
 
 /* Peak: pinned agent trace */
 .peak {
-    padding-top: clamp(4rem, 10vh, 8rem);
+    padding-top: clamp(2.5rem, 7vh, 5rem);
 }
 
 .peak-intro {
@@ -313,7 +313,7 @@ nav.scrolled {
    The dimmed state only applies when JS runs (html.js), so the page stays
    readable if scripts fail to load. */
 .statement {
-    padding: clamp(6rem, 18vh, 12rem) var(--gutter);
+    padding: clamp(4rem, 10vh, 6rem) var(--gutter);
     max-width: 68rem;
 }
 
@@ -338,11 +338,11 @@ nav.scrolled {
 .close {
     background: var(--ink);
     color: var(--paper);
-    min-height: 72vh;
+    min-height: 58vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 6rem var(--gutter) 2rem;
+    padding: 4.5rem var(--gutter) 2rem;
 }
 
 .close h2 {
@@ -355,7 +355,7 @@ nav.scrolled {
     color: rgba(246, 244, 238, 0.65);
     font-size: 1.25rem;
     max-width: var(--measure);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .close-cta {
@@ -376,7 +376,7 @@ nav.scrolled {
 
 .close footer {
     margin-top: auto;
-    padding-top: 5rem;
+    padding-top: 3rem;
     display: flex;
     justify-content: space-between;
     font-family: var(--font-mono);

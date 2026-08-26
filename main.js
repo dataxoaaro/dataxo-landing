@@ -91,40 +91,11 @@ function initTrace() {
     };
 }
 
-function initTimeline() {
-    const line = document.getElementById('timelinePath');
-    const timeline = document.querySelector('.timeline');
-    if (!line || !timeline) return () => {};
-
-    if (reducedMotion) {
-        line.style.strokeDashoffset = 0;
-        return () => {};
-    }
-
-    return () => {
-        const rect = timeline.getBoundingClientRect();
-        const progress = Math.min(1, Math.max(0, (window.innerHeight * 0.85 - rect.top) / rect.height));
-        line.style.strokeDashoffset = 100 * (1 - progress);
-    };
-}
-
 function initNav() {
     const nav = document.getElementById('topnav');
     return () => {
         nav.classList.toggle('scrolled', window.scrollY > 24);
     };
-}
-
-function initReveals() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 }
 
 function initClaims() {
@@ -138,10 +109,9 @@ function initClaims() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initReveals();
     initClaims();
 
-    const frameTasks = [initNav(), initTrace(), initTimeline()];
+    const frameTasks = [initNav(), initTrace()];
     let ticking = false;
     const onFrame = () => {
         frameTasks.forEach((task) => task());

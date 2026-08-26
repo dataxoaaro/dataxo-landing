@@ -387,6 +387,15 @@ nav.scrolled {
 
 /* Mobile */
 @media (max-width: 820px) {
+    .hero-tags {
+        gap: 0.45rem;
+        font-size: 0.7rem;
+    }
+
+    .hero-tags li {
+        padding: 0.4rem 0.8rem;
+    }
+
     .trace-grid {
         grid-template-columns: 1fr;
         gap: 1.6rem;
